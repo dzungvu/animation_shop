@@ -3,6 +3,8 @@ class Dimens {
   static const double basicMargin = 16;
   static const double marginItem = 8;
 
+  static const double paddingTextField = 8;
+
   //Size
   static const double basicIconSize = 16;
   static const double basicAppBarTitleSize = 25;
@@ -12,6 +14,9 @@ class Dimens {
 
   static const double popularItemHeight = 100;
   static const double popularItemWidth = double.infinity;
+
+  //Radius
+  static const double textSearchRadius = 10;
 
   //Text size
   static const double largeTitle = 17;

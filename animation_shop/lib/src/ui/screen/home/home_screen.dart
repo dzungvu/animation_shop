@@ -90,13 +90,29 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
   }
 
   Widget _getSearchView() {
+    TextEditingController _textSearchController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.all(Dimens.basicMargin),
-      child: TextField(
-        textAlign: TextAlign.start,
-        decoration: InputDecoration(
-          hintText: 'Search',
-          border: OutlineInputBorder(),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: Dimens.paddingTextField),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(Dimens.textSearchRadius),
+            ),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.primary,
+            )),
+        child: TextField(
+          controller: _textSearchController,
+          textAlign: TextAlign.start,
+          textInputAction: TextInputAction.search,
+          onSubmitted: (value) {
+            print('Search for key word: $value');
+          },
+          decoration: InputDecoration(
+            icon: Icon(Icons.search),
+            hintText: 'Search',
+          ),
         ),
       ),
     );
