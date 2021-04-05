@@ -6,4 +6,10 @@ extension ColorschemeExtension on ColorScheme {
 
   Color get basicTitleColor =>
       brightness == Brightness.light ? Colors.black : Colors.white;
+
+  Color get mainTitle =>
+      brightness == Brightness.light ? Colors.grey.shade700 : Colors.white;
+
+  Color get mainContent =>
+      brightness == Brightness.light ? Colors.grey.shade900 : Colors.white;
 }
