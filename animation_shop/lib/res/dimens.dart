@@ -10,7 +10,7 @@ class Dimens {
   static const double basicAppBarTitleSize = 25;
 
   static const double lastSeenItemWidth = 180;
-  static const double lastSeenItemHeight = 120;
+  static const double lastSeenItemHeight = 220;
 
   static const double popularItemHeight = 100;
   static const double popularItemWidth = double.infinity;

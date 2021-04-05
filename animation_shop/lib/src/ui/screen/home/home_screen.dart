@@ -1,6 +1,8 @@
 import 'package:animation_shop/res/dimens.dart';
+import 'package:animation_shop/src/entities/home/item_home_entity.dart';
 import 'package:animation_shop/src/ui/base/base_screen.dart';
 import 'package:animation_shop/src/ui/base/basic_screen.dart';
+import 'package:animation_shop/src/ui/screen/home/home_screen_viewmodel.dart';
 import 'package:animation_shop/src/ui/screen/home/items/last_seen_item.dart';
 import 'package:animation_shop/src/ui/screen/home/items/popular_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +20,8 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
 
   @override
   bool get hasAppBar => false;
+
+  HomeViewModel _viewModel = HomeViewModel();
 
   @override
   Widget body() {
@@ -111,6 +115,10 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
           },
           decoration: InputDecoration(
             icon: Icon(Icons.search),
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
             hintText: 'Search',
           ),
         ),
@@ -119,13 +127,18 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
   }
 
   Widget _getLastSeenList() {
+    List<ItemHomeEntity> data = _viewModel.getHomeData();
     return Container(
       height: Dimens.lastSeenItemHeight,
       child: ListView.separated(
         separatorBuilder: (context, index) =>
             SizedBox(width: Dimens.marginItem),
-        itemCount: 5,
-        itemBuilder: (context, index) => LastSeenItem(),
+        itemCount: data.length,
+        itemBuilder: (context, index) => LastSeenItem(
+          index: index,
+          lastIndex: data.length - 1,
+          itemHomeEntity: data[index],
+        ),
         scrollDirection: Axis.horizontal,
       ),
     );
