@@ -1,6 +1,8 @@
 import 'package:animation_shop/res/dimens.dart';
 import 'package:animation_shop/src/ui/base/base_screen.dart';
 import 'package:animation_shop/src/ui/base/basic_screen.dart';
+import 'package:animation_shop/src/ui/screen/home/items/last_seen_item.dart';
+import 'package:animation_shop/src/ui/screen/home/items/popular_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animation_shop/extensions/color_scheme_extension.dart';
@@ -63,8 +65,64 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
                 ),
               ],
             ),
-          )
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) => _getItemAt(index),
+              itemCount: 3,
+              scrollDirection: Axis.vertical,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _getItemAt(int index) {
+    switch (index) {
+      case 0:
+        return _getSearchView();
+      case 1:
+        return _getLastSeenList();
+      default:
+        return _getPopularList();
+    }
+  }
+
+  Widget _getSearchView() {
+    return Padding(
+      padding: const EdgeInsets.all(Dimens.basicMargin),
+      child: TextField(
+        textAlign: TextAlign.start,
+        decoration: InputDecoration(
+          hintText: 'Search',
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  Widget _getLastSeenList() {
+    return Container(
+      height: Dimens.lastSeenItemHeight,
+      child: ListView.separated(
+        separatorBuilder: (context, index) =>
+            SizedBox(width: Dimens.marginItem),
+        itemCount: 5,
+        itemBuilder: (context, index) => LastSeenItem(),
+        scrollDirection: Axis.horizontal,
+      ),
+    );
+  }
+
+  Widget _getPopularList() {
+    return Container(
+      height: 5 * Dimens.popularItemHeight,
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (context, idnex) => PopularItem(),
+        itemCount: 5,
+        scrollDirection: Axis.vertical,
       ),
     );
   }
