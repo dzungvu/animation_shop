@@ -85,15 +85,18 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
   Widget _getItemAt(int index) {
     switch (index) {
       case 0:
-        return _getSearchView();
+        return SearchView();
       case 1:
-        return _getLastSeenList();
+        return LastSeenList(data: _viewModel.getHomeData());
       default:
-        return _getPopularList();
+        return PopularList();
     }
   }
+}
 
-  Widget _getSearchView() {
+class SearchView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     TextEditingController _textSearchController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.all(Dimens.basicMargin),
@@ -125,9 +128,15 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
       ),
     );
   }
+}
 
-  Widget _getLastSeenList() {
-    List<ItemHomeEntity> data = _viewModel.getHomeData();
+class LastSeenList extends StatelessWidget {
+  final List<ItemHomeEntity> data;
+
+  LastSeenList({@required this.data});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: Dimens.lastSeenItemHeight,
       child: ListView.separated(
@@ -143,8 +152,11 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
       ),
     );
   }
+}
 
-  Widget _getPopularList() {
+class PopularList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 5 * Dimens.popularItemHeight,
       child: ListView.builder(
