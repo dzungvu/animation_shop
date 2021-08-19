@@ -17,18 +17,18 @@ mixin BasicScreen<Screen extends BaseScreen> on BaseScreenState<Screen> {
           centerTitle: true,
         ),
         body: Container(
-          child: body(),
+          child: body(context),
         ),
       );
     }
 
     return Scaffold(
       body: Container(
-        child: body(),
+        child: body(context),
       ),
     );
   }
 
-  Widget body();
+  Widget body(BuildContext context);
   bool hasAppBar = true;
 }

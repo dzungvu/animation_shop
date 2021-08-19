@@ -5,6 +5,7 @@ import 'package:animation_shop/src/ui/base/basic_screen.dart';
 import 'package:animation_shop/src/ui/screen/home/home_screen_viewmodel.dart';
 import 'package:animation_shop/src/ui/screen/home/items/last_seen_item.dart';
 import 'package:animation_shop/src/ui/screen/home/items/popular_item.dart';
+import 'package:animation_shop/src/utils/InheritedProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animation_shop/extensions/color_scheme_extension.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
   HomeViewModel _viewModel = HomeViewModel();
 
   @override
-  Widget body() {
+  Widget body(BuildContext context) {
     return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -71,18 +72,43 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) => _getItemAt(index),
-              itemCount: 3,
-              scrollDirection: Axis.vertical,
+            child: InheritedProvider(
+              inheritedData: Colors.green,
+              // child: ListView.builder(
+              //   itemBuilder: (context, index) => MainItem(index: index),
+              //   itemCount: 3,
+              //   scrollDirection: Axis.vertical,
+              // ),
+              child: Testt(
+                viewModel: InheritedProvider.of<Color> (context),
+              ),
             ),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _getItemAt(int index) {
+class Testt extends StatelessWidget {
+  final Color viewModel;
+  Testt({@required this.viewModel});
+  @override
+  Widget build(BuildContext context) {
+    // final _viewModel = InheritedProvider.of<HomeViewModel>(context);
+    // TODO: implement build
+    return Text('data');
+  }
+}
+
+class MainItem extends StatelessWidget {
+  final int index;
+
+  MainItem({@required this.index});
+  @override
+  Widget build(BuildContext context) {
+    final _viewModel = InheritedProvider.of<HomeViewModel>(context);
+
     switch (index) {
       case 0:
         return SearchView();
