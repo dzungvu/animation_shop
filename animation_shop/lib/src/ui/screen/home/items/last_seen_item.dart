@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LastSeenItem extends StatelessWidget {
-  final int index;
-  final int lastIndex;
-  final ItemHomeEntity itemHomeEntity;
+  final int? index;
+  final int? lastIndex;
+  final ItemHomeEntity? itemHomeEntity;
 
   LastSeenItem({
-    Key key,
+    Key? key,
     this.index,
     this.lastIndex,
     this.itemHomeEntity,
@@ -39,9 +39,9 @@ class LastSeenItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(itemHomeEntity.title),
-            Text(itemHomeEntity.des),
-            Image(image: NetworkImage(itemHomeEntity.imageUrl)),
+            Text(itemHomeEntity!.title!),
+            Text(itemHomeEntity!.des!),
+            Image(image: NetworkImage(itemHomeEntity!.imageUrl!)),
           ],
         ),
       ),

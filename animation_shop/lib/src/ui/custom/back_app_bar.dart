@@ -7,9 +7,9 @@ class AppBarContent extends StatelessWidget implements PreferredSizeWidget {
   final Function onBackPress;
 
   AppBarContent({
-    Key key,
-    @required this.titile,
-    @required this.onBackPress,
+    Key? key,
+    required this.titile,
+    required this.onBackPress,
   }) : super(key: key);
 
   @override

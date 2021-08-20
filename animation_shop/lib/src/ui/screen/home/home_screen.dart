@@ -5,7 +5,7 @@ import 'package:animation_shop/src/ui/base/basic_screen.dart';
 import 'package:animation_shop/src/ui/screen/home/home_screen_viewmodel.dart';
 import 'package:animation_shop/src/ui/screen/home/items/last_seen_item.dart';
 import 'package:animation_shop/src/ui/screen/home/items/popular_item.dart';
-import 'package:animation_shop/src/utils/InheritedProvider.dart';
+import 'package:animation_shop/src/utils/inherited_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animation_shop/extensions/color_scheme_extension.dart';
@@ -72,16 +72,13 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
             ),
           ),
           Expanded(
-            child: InheritedProvider(
+            // child: InheritedProvider<HomeViewModel>(
+            //   inheritedData: _viewModel,
+            //   child: ListMainItem(),
+            // ),
+            child: InheritedProvider<Color>(
               inheritedData: Colors.green,
-              // child: ListView.builder(
-              //   itemBuilder: (context, index) => MainItem(index: index),
-              //   itemCount: 3,
-              //   scrollDirection: Axis.vertical,
-              // ),
-              child: Testt(
-                viewModel: InheritedProvider.of<Color> (context),
-              ),
+              child: ColorView(),
             ),
           ),
         ],
@@ -90,30 +87,51 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
   }
 }
 
-class Testt extends StatelessWidget {
-  final Color viewModel;
-  Testt({@required this.viewModel});
+class ColorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final _viewModel = InheritedProvider.of<HomeViewModel>(context);
-    // TODO: implement build
-    return Text('data');
+    Color? color = InheritedProvider.of<Color>(context);
+    return Container(
+      color: color ?? Colors.yellow,
+      child: Text('color view'),
+    );
+  }
+}
+
+class ListMainItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = InheritedProvider.of<HomeViewModel>(context);
+
+    if (viewModel != null) {
+      return ListView.builder(
+        itemBuilder: (context, index) => MainItem(
+          index: index,
+          viewModel: viewModel,
+        ),
+        itemCount: 3,
+        scrollDirection: Axis.vertical,
+      );
+    }
+    return Container(
+      child: Text('_viewModel null'),
+    );
   }
 }
 
 class MainItem extends StatelessWidget {
   final int index;
+  final HomeViewModel viewModel;
+  MainItem({required this.index, required this.viewModel});
 
-  MainItem({@required this.index});
   @override
   Widget build(BuildContext context) {
-    final _viewModel = InheritedProvider.of<HomeViewModel>(context);
-
     switch (index) {
       case 0:
         return SearchView();
       case 1:
-        return LastSeenList(data: _viewModel.getHomeData());
+        return LastSeenList(data: viewModel.getHomeData());
+
       default:
         return PopularList();
     }
@@ -159,7 +177,7 @@ class SearchView extends StatelessWidget {
 class LastSeenList extends StatelessWidget {
   final List<ItemHomeEntity> data;
 
-  LastSeenList({@required this.data});
+  LastSeenList({required this.data});
 
   @override
   Widget build(BuildContext context) {
