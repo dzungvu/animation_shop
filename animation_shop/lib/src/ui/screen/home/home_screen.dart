@@ -1,10 +1,12 @@
 import 'package:animation_shop/res/dimens.dart';
+import 'package:animation_shop/src/entities/genneral/general_entity.dart';
 import 'package:animation_shop/src/entities/home/item_home_entity.dart';
 import 'package:animation_shop/src/ui/base/base_screen.dart';
 import 'package:animation_shop/src/ui/base/basic_screen.dart';
 import 'package:animation_shop/src/ui/screen/home/home_screen_viewmodel.dart';
 import 'package:animation_shop/src/ui/screen/home/items/last_seen_item.dart';
 import 'package:animation_shop/src/ui/screen/home/items/popular_item.dart';
+import 'package:animation_shop/src/ui/screen/linear_text_screen/linear_text_screen.dart';
 import 'package:animation_shop/src/utils/inherited_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,28 +74,13 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
             ),
           ),
           Expanded(
-            // child: InheritedProvider<HomeViewModel>(
-            //   inheritedData: _viewModel,
-            //   child: ListMainItem(),
-            // ),
-            child: InheritedProvider<Color>(
-              inheritedData: Colors.green,
-              child: ColorView(),
+            child: InheritedProvider<HomeViewModel>(
+              inheritedData: _viewModel,
+              child: ListMainItem(),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class ColorView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Color? color = InheritedProvider.of<Color>(context);
-    return Container(
-      color: color ?? Colors.yellow,
-      child: Text('color view'),
     );
   }
 }
@@ -191,10 +178,26 @@ class LastSeenList extends StatelessWidget {
           index: index,
           lastIndex: data.length - 1,
           itemHomeEntity: data[index],
+          onPress: () {
+            _gotoScreen(context, data[index].id);
+          },
         ),
         scrollDirection: Axis.horizontal,
       ),
     );
+  }
+
+  void _gotoScreen(BuildContext context, String id) {
+    switch (id) {
+      case GeneralEntity.LINEAR_TEXT:
+        {
+          Navigator.pushNamed(context, LinearTextScreen.routeName);
+          break;
+        }
+
+      default:
+        {}
+    }
   }
 }
 

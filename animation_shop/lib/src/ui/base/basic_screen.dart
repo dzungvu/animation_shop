@@ -7,7 +7,12 @@ mixin BasicScreen<Screen extends BaseScreen> on BaseScreenState<Screen> {
   Widget build(BuildContext context) {
     if (hasAppBar) {
       return Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back_ios_new),
+          ),
           title: Text(
             screenName(),
             style: TextStyle(
@@ -31,4 +36,5 @@ mixin BasicScreen<Screen extends BaseScreen> on BaseScreenState<Screen> {
 
   Widget body(BuildContext context);
   bool hasAppBar = true;
+  Color backgroundColor = AppColors.darkThemeBg;
 }

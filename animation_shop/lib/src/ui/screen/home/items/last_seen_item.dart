@@ -4,15 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LastSeenItem extends StatelessWidget {
-  final int? index;
-  final int? lastIndex;
-  final ItemHomeEntity? itemHomeEntity;
+  final int index;
+  final int lastIndex;
+  final ItemHomeEntity itemHomeEntity;
+  final Function onPress;
 
   LastSeenItem({
     Key? key,
-    this.index,
-    this.lastIndex,
-    this.itemHomeEntity,
+    required this.index,
+    required this.lastIndex,
+    required this.itemHomeEntity,
+    required this.onPress,
   }) : super(key: key);
 
   @override
@@ -21,28 +23,31 @@ class LastSeenItem extends StatelessWidget {
     double _itemPaddingLeft = index == 0 ? Dimens.basicMargin : 0;
     double _itemPaddingRight = index == lastIndex ? Dimens.basicMargin : 0;
 
-    return Padding(
-      padding: EdgeInsets.only(
-        left: _itemPaddingLeft,
-        right: _itemPaddingRight,
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.amber,
-          border: Border.all(
-            color: Colors.black,
-          ),
+    return GestureDetector(
+      onTap: () => onPress(),
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: _itemPaddingLeft,
+          right: _itemPaddingRight,
         ),
-        width: Dimens.lastSeenItemWidth,
-        height: Dimens.lastSeenItemHeight,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(itemHomeEntity!.title!),
-            Text(itemHomeEntity!.des!),
-            Image(image: NetworkImage(itemHomeEntity!.imageUrl!)),
-          ],
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.amber,
+            border: Border.all(
+              color: Colors.black,
+            ),
+          ),
+          width: Dimens.lastSeenItemWidth,
+          height: Dimens.lastSeenItemHeight,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(itemHomeEntity.title),
+              Text(itemHomeEntity.des),
+              Image(image: NetworkImage(itemHomeEntity.imageUrl)),
+            ],
+          ),
         ),
       ),
     );
