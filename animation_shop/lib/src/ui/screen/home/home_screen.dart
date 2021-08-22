@@ -6,11 +6,13 @@ import 'package:animation_shop/src/ui/base/basic_screen.dart';
 import 'package:animation_shop/src/ui/screen/home/home_screen_viewmodel.dart';
 import 'package:animation_shop/src/ui/screen/home/items/last_seen_item.dart';
 import 'package:animation_shop/src/ui/screen/home/items/popular_item.dart';
+import 'package:animation_shop/src/ui/screen/home/provider/page_view_holder.dart';
 import 'package:animation_shop/src/ui/screen/linear_text_screen/linear_text_screen.dart';
-import 'package:animation_shop/src/utils/inherited_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animation_shop/extensions/color_scheme_extension.dart';
+import 'package:provider/provider.dart';
+import 'package:animation_shop/src/utils/inherited_provider.dart';
 
 class HomeScreen extends BaseScreen {
   static final String routeName = '/home';
@@ -74,7 +76,7 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
             ),
           ),
           Expanded(
-            child: InheritedProvider<HomeViewModel>(
+            child: MyInheritedProvider<HomeViewModel>(
               inheritedData: _viewModel,
               child: ListMainItem(),
             ),
@@ -88,7 +90,7 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> with BasicScreen {
 class ListMainItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final viewModel = InheritedProvider.of<HomeViewModel>(context);
+    final viewModel = MyInheritedProvider.of<HomeViewModel>(context);
 
     if (viewModel != null) {
       return ListView.builder(
@@ -166,23 +168,38 @@ class LastSeenList extends StatelessWidget {
 
   LastSeenList({required this.data});
 
+  final _fraction = 0.5;
+  late final _pageController = PageController(
+    initialPage: 2,
+    viewportFraction: _fraction,
+  );
+  late final PageViewHolder _holder = PageViewHolder(value: 2.0);
+
   @override
   Widget build(BuildContext context) {
+    debugPrint('Init pagerController');
+    _pageController.addListener(() {
+      _holder.setValue(_pageController.page ?? 0);
+    });
     return Container(
       height: Dimens.lastSeenItemHeight,
-      child: ListView.separated(
-        separatorBuilder: (context, index) =>
-            SizedBox(width: Dimens.marginItem),
-        itemCount: data.length,
-        itemBuilder: (context, index) => LastSeenItem(
-          index: index,
-          lastIndex: data.length - 1,
-          itemHomeEntity: data[index],
-          onPress: () {
-            _gotoScreen(context, data[index].id);
-          },
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: ChangeNotifierProvider<PageViewHolder>.value(
+          value: _holder,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: data.length,
+            physics: BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              return ItemLastSeen(
+                data: data[index],
+                number: index.toDouble(),
+                fraction: _fraction,
+              );
+            },
+          ),
         ),
-        scrollDirection: Axis.horizontal,
       ),
     );
   }
@@ -212,6 +229,72 @@ class PopularList extends StatelessWidget {
         itemCount: 5,
         scrollDirection: Axis.vertical,
       ),
+    );
+  }
+}
+
+class ItemLastSeen extends StatelessWidget {
+  final ItemHomeEntity data;
+  final double number;
+  final double fraction;
+
+  ItemLastSeen(
+      {required this.data, required this.number, required this.fraction});
+  @override
+  Widget build(BuildContext context) {
+    double value = Provider.of<PageViewHolder>(context).value;
+
+    double diff = number - value;
+
+    final Matrix4 pvMatrix = Matrix4.identity()
+      ..setEntry(3, 3, 1 / 0.9)
+      ..setEntry(1, 1, fraction)
+      ..setEntry(3, 0, 0.004 * -diff);
+
+    final Matrix4 shadowMatrix = Matrix4.identity()
+      ..setEntry(3, 3, 1 / 1.6)
+      ..setEntry(3, 1, -0.004)
+      ..setEntry(3, 0, 0.002 * diff)
+      ..rotateX(1.309);
+
+    debugPrint('$value');
+
+    return Stack(
+      fit: StackFit.expand,
+      alignment: Alignment.center,
+      children: [
+        if (diff <= 1.0 && diff >= -1.0) ...[
+          AnimatedOpacity(
+            duration: Duration(milliseconds: 100),
+            opacity: 1 - diff.abs(),
+            child: Transform(
+              transform: shadowMatrix,
+              alignment: FractionalOffset.bottomCenter,
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10.0,
+                      spreadRadius: 1.0,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+        Transform(
+          transform: pvMatrix,
+          alignment: FractionalOffset.center,
+          child: Container(
+            child: Image.asset(
+              data.imageUrl,
+              fit: BoxFit.fill,
+            ),
+          ),
+        )
+      ],
     );
   }
 }

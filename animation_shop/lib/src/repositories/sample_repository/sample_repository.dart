@@ -10,8 +10,79 @@ class SampleRepository {
           id: GeneralEntity.LINEAR_TEXT,
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
-          imageUrl:
-              'https://img.etimg.com/thumb/msid-75176755,width-640,resizemode-4,imgsize-612672/effect-of-coronavirus-on-food.jpg',
+          imageUrl: 'lib/res/assets/img1.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img2.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img3.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img4.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img5.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img6.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img7.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img8.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img9.jpeg',
+        ),
+      )
+      ..add(
+        ItemHomeEntity(
+          id: GeneralEntity.LINEAR_TEXT,
+          title: 'Linear Text',
+          des: 'Rotate text with 3d effect',
+          imageUrl: 'lib/res/assets/img10.jpeg',
         ),
       );
 

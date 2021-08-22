@@ -20,7 +20,8 @@ dependencies:
   cupertino_icons: ^1.0.3
   shared_preferences: ^2.0.6
   get: ^4.3.8
-
+  
+  provider: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +34,15 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - lib/res/assets/img1.jpeg
+    - lib/res/assets/img2.jpeg
+    - lib/res/assets/img3.jpeg
+    - lib/res/assets/img4.jpeg
+    - lib/res/assets/img5.jpeg
+    - lib/res/assets/img6.jpeg
+    - lib/res/assets/img7.jpeg
+    - lib/res/assets/img8.jpeg
+    - lib/res/assets/img9.jpeg
+    - lib/res/assets/img10.jpeg
