@@ -3,6 +3,7 @@ import 'package:animation_shop/src/entities/genneral/general_entity.dart';
 import 'package:animation_shop/src/entities/home/item_home_entity.dart';
 import 'package:animation_shop/src/ui/base/base_screen.dart';
 import 'package:animation_shop/src/ui/base/basic_screen.dart';
+import 'package:animation_shop/src/ui/screen/atm_card_screen/atm_card_screen.dart';
 import 'package:animation_shop/src/ui/screen/home/home_screen_viewmodel.dart';
 import 'package:animation_shop/src/ui/screen/home/items/last_seen_item.dart';
 import 'package:animation_shop/src/ui/screen/home/items/popular_item.dart';
@@ -203,19 +204,6 @@ class LastSeenList extends StatelessWidget {
       ),
     );
   }
-
-  void _gotoScreen(BuildContext context, String id) {
-    switch (id) {
-      case GeneralEntity.LINEAR_TEXT:
-        {
-          Navigator.pushNamed(context, LinearTextScreen.routeName);
-          break;
-        }
-
-      default:
-        {}
-    }
-  }
 }
 
 class PopularList extends StatelessWidget {
@@ -259,42 +247,64 @@ class ItemLastSeen extends StatelessWidget {
 
     debugPrint('$value');
 
-    return Stack(
-      fit: StackFit.expand,
-      alignment: Alignment.center,
-      children: [
-        if (diff <= 1.0 && diff >= -1.0) ...[
-          AnimatedOpacity(
-            duration: Duration(milliseconds: 100),
-            opacity: 1 - diff.abs(),
-            child: Transform(
-              transform: shadowMatrix,
-              alignment: FractionalOffset.bottomCenter,
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10.0,
-                      spreadRadius: 1.0,
-                    ),
-                  ],
+    return GestureDetector(
+      onTap: () => _gotoScreen(context, data.id),
+      child: Stack(
+        fit: StackFit.expand,
+        alignment: Alignment.center,
+        children: [
+          if (diff <= 1.0 && diff >= -1.0) ...[
+            AnimatedOpacity(
+              duration: Duration(milliseconds: 100),
+              opacity: 1 - diff.abs(),
+              child: Transform(
+                transform: shadowMatrix,
+                alignment: FractionalOffset.bottomCenter,
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-        Transform(
-          transform: pvMatrix,
-          alignment: FractionalOffset.center,
-          child: Container(
-            child: Image.asset(
-              data.imageUrl,
-              fit: BoxFit.fill,
+          ],
+          Transform(
+            transform: pvMatrix,
+            alignment: FractionalOffset.center,
+            child: Container(
+              child: Image.asset(
+                data.imageUrl,
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
+  }
+
+  void _gotoScreen(BuildContext context, String id) {
+    switch (id) {
+      case GeneralEntity.LINEAR_TEXT:
+        {
+          Navigator.pushNamed(context, LinearTextScreen.routeName);
+          break;
+        }
+
+      case GeneralEntity.ATM_CARD:
+        {
+          Navigator.pushNamed(context, AtmCardScreen.routeName);
+          break;
+        }
+
+      default:
+        {}
+    }
   }
 }

@@ -15,7 +15,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: GeneralEntity.ATM_CARD,
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img2.jpeg',
@@ -23,7 +23,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img3.jpeg',
@@ -31,7 +31,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img4.jpeg',
@@ -39,7 +39,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img5.jpeg',
@@ -47,7 +47,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img6.jpeg',
@@ -55,7 +55,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img7.jpeg',
@@ -63,7 +63,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img8.jpeg',
@@ -71,7 +71,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img9.jpeg',
@@ -79,7 +79,7 @@ class SampleRepository {
       )
       ..add(
         ItemHomeEntity(
-          id: GeneralEntity.LINEAR_TEXT,
+          id: '',
           title: 'Linear Text',
           des: 'Rotate text with 3d effect',
           imageUrl: 'lib/res/assets/img10.jpeg',
