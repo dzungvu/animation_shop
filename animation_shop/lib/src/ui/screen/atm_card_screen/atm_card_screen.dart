@@ -19,18 +19,22 @@ class _AtmCardState extends BaseScreenState<AtmCardScreen> with BasicScreen {
   @override
   Color get backgroundColor => AppColors.lightThemeBg;
 
+  var x = 0.0;
+
   @override
   Widget body(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.all(64),
       child: Center(
         child: Transform(
-          transform: Matrix4.identity()..setEntry(1, 1, 0.5),
+          transform: Matrix4.identity()..setEntry(3, 2, 0.001)..rotateX(x),
           alignment: FractionalOffset.center,
           child: GestureDetector(
             onPanUpdate: (details) {
-              
+              debugPrint('pan gesture ${details.delta.dy}');
+              setState(() {
+                x = x + details.delta.dy / 100;
+              });
             },
             child: Image.asset(
               'lib/res/assets/cardf.png',
